@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vue Basics</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+
+		<div class="container" id="app">
+			<div class="card">
+				<h1>{{ title }}</h1>
+				<div class="form-control">
+					<!-- <input
+						:value="inputValue"
+						:placeholder="customPlaceholder"
+						type="text"
+						@input="changeInputValue"
+					> -->
+					<input
+						v-model="inputValue"
+						:placeholder="customPlaceholder"
+						type="text"
+						@keypress.enter="addNote"
+					>
+				</div>
+				<button class="btn" @click="addNote">Добавить</button>
+				<hr />
+				<ul
+					v-if="notes.length"
+					class="list"
+				>
+					<li
+						v-for="note, idx in notes"
+						class="list-item"
+					>
+						<!-- зачеркивать текст, если сделано -->
+						<!-- можно передавать массив классов -->
+						<!-- класс без условия применится ко всем -->
+						<span :class="['bold', {'crossed': note.isCompleted}]">
+							{{ idx + 1 }}. {{ note.text }}
+						</span>
+						<div class="actions">
+							<button
+								class="btn primary"
+								:class="{'disabled': note.isCompleted}"
+								@click="completeNote(idx)"
+							>
+								готово
+							</button>
+							<button class="btn danger" @click="deleteNote(idx)">удалить</button>
+						</div>
+					</li>
+					<hr />
+					<p> Завершено задач: {{ completedNotes.length }}</p>
+				</ul>
+				<p v-else>
+					Задач пока нет
+				</p>
+			</div>
+		</div>
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
