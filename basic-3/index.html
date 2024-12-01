@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vue Basics</title>
+		<link rel="stylesheet" href="style.css" />
+		<style>
+			/* скрывает еще не скомпилированный шаблон */
+			[v-cloak] { display: none; }
+		</style>
+	</head>
+	<body>
+		<div class="container" id="app" v-cloak>
+			<div class="card">
+				<h1 v-text="title"></h1>
+				<!--
+				<h2 v-once>{{ title }}</h2>
+				<h2 v-pre>{{ title }}</h2>
+
+				<button
+					class="btn"
+					@click="title = 'Теперь я другое название'"
+				>
+					Изменить название
+				</button>
+				-->
+				<div class="form-control">
+					<!-- метод вызовется только если будут нажаты shift+enter-->
+					<input type="text" @keyup.shift.enter.exact="addItem($event)" ref="myInput">
+				</div>
+				<button class="btn" @click="addItem">Добавить</button>
+				<hr />
+				<ul
+					v-if="notes.length"
+					class="list"
+				>
+					<!-- препятствует вызову контекстного меню при пкм -->
+					<li
+						v-for="note, idx in notes"
+						:key="note"
+						class="list-item"
+						@click.right.prevent="completeNote(idx), deleteNote(idx)"
+					>
+						<span>
+							{{ idx + 1 }}. {{ note.text }}
+						</span>
+						<!-- вызывает event.stopPropagation() -->
+						<input type="text" @click.stop>
+					</li>
+				</ul>
+				<p v-show="!notes.length">
+					Задач пока нет
+				</p>
+			</div>
+		</div>
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>

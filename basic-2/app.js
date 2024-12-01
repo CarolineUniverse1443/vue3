@@ -3,7 +3,7 @@ const App = {
 	{
 		return {
 			title: 'Список дел',
-			customPlaceholder: 'Введите текст заметки',
+			customPlaceholder: 'Введите текст задачи',
 			inputValue: '',
 			notes: [],
 		};
